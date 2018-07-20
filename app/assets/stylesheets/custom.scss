@@ -166,7 +166,9 @@ input {
   height: auto !important;
 }
 
+/* forms */
 #error_explanation {
+  // errorメッセージの見た目
   color: red;
   ul {
     color: red;

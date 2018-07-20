@@ -12,17 +12,18 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)   #strong parametersを使う。
-    if @user.save
+    @user = User.new(user_params)  #strong parametersを使う。
+    if @user.save #saveメソッドを使うまでバリデーションは働かない。
       # 保存の成功をここで扱う。
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      log_in @user   ###ユーザー登録と同時にログインさせる。
+      flash[:success] = "Welcome to the Sample App!"   ###一度だけフラッシュメッセージを表示する。
+      redirect_to @user   #redirect_to user_url(@user)
     else
-      render 'new'
+      render 'new'###保存が失敗したらnewページを出力（戻る）
     end
   end
 
-  private   #見えないようにできるやつ。
+  private #見えないようにできるやつ。
 
     def user_params   #こいつらだけ書き換えて良いぞ。
       params.require(:user).permit(:name, :email, :password,
